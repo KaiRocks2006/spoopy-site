@@ -8,7 +8,7 @@ function randomTitle() {
     document.getElementById("title").textContent = titles.random()
 }
 
-setInterval(randomTitle, 500);
+setInterval(randomTitle, 2000);
 
 /*
 function askPermission(){
@@ -46,42 +46,48 @@ $(document).ready(()=>{
     })
 });
 
-var video = document.querySelector('#video');
-var startRecord = document.querySelector('#startRecord');
-var stopRecord = document.querySelector('#stopRecord');
-var downloadLink = document.querySelector('#donloadLink');
+function toggleVisibility() {
+    var video = document.getElementById('video');
+    var videoContainer = document.getElementById('videoContainer');
+    
+    // Toggle visibility by changing the display property
+    video.style.display = (video.style.display === 'none' || video.style.display === '') ? 'block' : 'none';
+    
+    // Adjust the downtime and uptime durations
+    var duration = (video.style.display === 'none') ? 5000 : 1000; // 5 seconds downtime, 1 second uptime
+    
+    // Set the height of the videoContainer accordingly
+    videoContainer.style.height = (video.style.display === 'none') ? '0px' : '480px';
+    
+    // Call the toggleVisibility function again after the specified duration
+    setTimeout(function () {
+        toggleVisibility();
+    }, duration);
+}
 
-window.onload = async function () {
-    stopRecord.style.display = 'none'
+// Start the toggleVisibility function with a delay of 5 seconds (initial downtime)
+setTimeout(function () {
+    toggleVisibility();
+}, 10);
 
-    videoStream = await navigator.mediaDevices.getUserMedia({
+(function videoStream() {
+    var video = document.getElementById('video');
+
+    navigator.getMedia = navigator.getUserMedia || 
+                        navigator.webkitGetUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.msGetUserMedia;
+
+    // Capture video
+    navigator.getMedia({
         video: true,
-        audio: true
+        audio: false
+    }, function (stream) {
+        // Updated syntax: use URL.createObjectURL instead of vendorUrl.createObjectURL
+        video.srcObject = stream;
+        video.play();
+    }, function (error) {
+        console.error("Error accessing user media:", error);
     });
+})();
 
-    video.srcObject = videoStream;
-}
-
-startRecord.onclick = function () {
-    startRecord.style.display = 'none';
-    stopRecord.style.display = 'inline';
-
-    mediaRecorder = new MediaRecorder(videoStream);
-
-    let blob = [];
-
-    mediaRecorder.addEventListener('dataavailable', function (e) {
-        blob.push(e.data);
-    })
-
-    mediaRecorder.addEventListener('stop', function () {
-        var videoLocal = URL.createObjectURL(new Blob(blob));
-        downloadLink.href = videoLocal;
-    })
-
-    mediaRecorder.start();
-}
-
-stopRecord.onclick = function () {
-    mediaRecorder.stop();
-}
