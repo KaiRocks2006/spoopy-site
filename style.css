@@ -3,10 +3,18 @@ body {
 }
 
 p {
-    color: #910101;
+    color: #8b0000;
     font-family: Living Hell;
 }
 
-.button1 {
-    color:#000000;
+#videoElement {
+    width:500px;
+    height:375px;
+    background-color: #666;
+}
+
+#container {
+    margin:0px auto;
+    width: 500px;
+    height: 375px;
 }
