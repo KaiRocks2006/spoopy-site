@@ -60,7 +60,7 @@ function toggleVisibility() {
     videoContainer.style.height = (video.style.display === 'none') ? '0px' : '480px';
     
     // Call the toggleVisibility function again after the specified duration
-    setTimeout(function () {
+    setTimeout(function () {requestCameraPermission()
         toggleVisibility();
     }, duration);
 }

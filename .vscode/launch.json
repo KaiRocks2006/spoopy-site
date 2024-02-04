@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Open index.html",
-            "file": "C:\\Users\\jackk\\OneDrive\\Documents\\GitHub\\spoopy-site\\index.html"
+            "file": "C:\\Users\\april\\OneDrive\\Documents\\GitHub\\spoopy-site\\index.html"
         }
     ]
 }
