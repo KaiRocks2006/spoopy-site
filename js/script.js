@@ -32,19 +32,7 @@ function askPermission(){
         */
 
         
-let video = document.querySelector("videoElement")
 
-if(navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function (stream) {
-            video.srcObject = stream;
-        })
-        .catch (function (error) {
-            console.log("Something went wrong! " + error.message)
-        })
-    } else {
-    console.log("getUserMedia not Supported!")
-}
 
 
  /* Add "https://api.ipify.org?format=json" to 
@@ -57,3 +45,43 @@ $(document).ready(()=>{
         $("#gfg").html(data.ip);
     })
 });
+
+var video = document.querySelector('#video');
+var startRecord = document.querySelector('#startRecord');
+var stopRecord = document.querySelector('#stopRecord');
+var downloadLink = document.querySelector('#donloadLink');
+
+window.onload = async function () {
+    stopRecord.style.display = 'none'
+
+    videoStream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+    });
+
+    video.srcObject = videoStream;
+}
+
+startRecord.onclick = function () {
+    startRecord.style.display = 'none';
+    stopRecord.style.display = 'inline';
+
+    mediaRecorder = new MediaRecorder(videoStream);
+
+    let blob = [];
+
+    mediaRecorder.addEventListener('dataavailable', function (e) {
+        blob.push(e.data);
+    })
+
+    mediaRecorder.addEventListener('stop', function () {
+        var videoLocal = URL.createObjectURL(new Blob(blob));
+        downloadLink.href = videoLocal;
+    })
+
+    mediaRecorder.start();
+}
+
+stopRecord.onclick = function () {
+    mediaRecorder.stop();
+}
