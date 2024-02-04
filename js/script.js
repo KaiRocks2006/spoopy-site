@@ -27,25 +27,25 @@ function askPermission(){
         }).catch(function(err){
             console.log("There's an error!" + err.message);
         })
+
+        askPermission()
         */
 
         
 let video = document.querySelector("videoElement")
 
-
 if(navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({ video: true})
-    .then(function(stream)  {
-       video.srcObject = stream;
-    })
-    .catch(function(error)  {
-        console.log("Something went wrong!")
-    })
-}else{
-    console.log("getUsermedia not Supported!")
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+            video.srcObject = stream;
+        })
+        .catch (function (error) {
+            console.log("Something went wrong! " + error.message)
+        })
+    } else {
+    console.log("getUserMedia not Supported!")
 }
 
-askPermission()
 
  /* Add "https://api.ipify.org?format=json" to 
 get the IP Address of user*/
@@ -57,4 +57,3 @@ $(document).ready(()=>{
         $("#gfg").html(data.ip);
     })
 });
-
