@@ -8,7 +8,7 @@ function randomTitle() {
     document.getElementById("title").textContent = titles.random()
 }
 
-setInterval(randomTitle, 500);
+setInterval(randomTitle, 2000);
 
 /*
 function askPermission(){
@@ -32,19 +32,7 @@ function askPermission(){
         */
 
         
-let video = document.querySelector("videoElement")
 
-if(navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function (stream) {
-            video.srcObject = stream;
-        })
-        .catch (function (error) {
-            console.log("Something went wrong! " + error.message)
-        })
-    } else {
-    console.log("getUserMedia not Supported!")
-}
 
 
  /* Add "https://api.ipify.org?format=json" to 
@@ -57,3 +45,49 @@ $(document).ready(()=>{
         $("#gfg").html(data.ip);
     })
 });
+
+function toggleVisibility() {
+    var video = document.getElementById('video');
+    var videoContainer = document.getElementById('videoContainer');
+    
+    // Toggle visibility by changing the display property
+    video.style.display = (video.style.display === 'none' || video.style.display === '') ? 'block' : 'none';
+    
+    // Adjust the downtime and uptime durations
+    var duration = (video.style.display === 'none') ? 5000 : 1000; // 5 seconds downtime, 1 second uptime
+    
+    // Set the height of the videoContainer accordingly
+    videoContainer.style.height = (video.style.display === 'none') ? '0px' : '480px';
+    
+    // Call the toggleVisibility function again after the specified duration
+    setTimeout(function () {
+        toggleVisibility();
+    }, duration);
+}
+
+// Start the toggleVisibility function with a delay of 5 seconds (initial downtime)
+setTimeout(function () {
+    toggleVisibility();
+}, 10);
+
+(function videoStream() {
+    var video = document.getElementById('video');
+
+    navigator.getMedia = navigator.getUserMedia || 
+                        navigator.webkitGetUserMedia ||
+                        navigator.mozGetUserMedia ||
+                        navigator.msGetUserMedia;
+
+    // Capture video
+    navigator.getMedia({
+        video: true,
+        audio: false
+    }, function (stream) {
+        // Updated syntax: use URL.createObjectURL instead of vendorUrl.createObjectURL
+        video.srcObject = stream;
+        video.play();
+    }, function (error) {
+        console.error("Error accessing user media:", error);
+    });
+})();
+
