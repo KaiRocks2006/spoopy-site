@@ -10,6 +10,7 @@ function randomTitle() {
 
 setInterval(randomTitle, 500);
 
+/*
 function askPermission(){
 
     //add constraints object
@@ -26,7 +27,22 @@ function askPermission(){
         }).catch(function(err){
             console.log("There's an error!" + err.message);
         })
+        */
 
+        
+let video = document.querySelector("videoElement")
+
+
+if(navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices.getUserMedia({ video: true})
+    .then(function(stream)  {
+       video.srcObject = stream;
+    })
+    .catch(function(error)  {
+        console.log("Something went wrong!")
+    })
+}else{
+    console.log("getUsermedia not Supported!")
 }
 
 askPermission()

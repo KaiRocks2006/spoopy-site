@@ -6,3 +6,14 @@ p {
     color: #8b0000;
     font-family: Living Hell;
 }
+
+#video {
+    width:500px;
+    height:375px;
+}
+
+#container {
+    margin:0px auto;
+    width: 500px;
+    height: 375px;
+}
