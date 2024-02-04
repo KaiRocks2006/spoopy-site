@@ -8,7 +8,7 @@ function randomTitle() {
     document.getElementById("title").textContent = titles.random()
 }
 
-setInterval(randomTitle, 2000);
+/*setInterval(randomTitle, 2000);*/
 
 /*
 function askPermission(){
