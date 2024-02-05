@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       videoElement.style.display = (Math.random() > 0.5) ? 'block' : 'none';
       
       // Set the delay for the next toggle
-      const delay = Math.random() * (750 - 10) + 10; // Random delay between 10ms and 750ms
+      const delay = Math.random() * (420 - 5) + 5; // Random delay between 5ms and 420ms
       setTimeout(toggleVisibilityRandomly, delay);
     }
 
@@ -40,4 +40,3 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Error accessing the webcam:', error);
       });
   });
-
