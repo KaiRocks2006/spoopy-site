@@ -9,12 +9,40 @@ p {
     font-size: 40px;
 }
 
+h1{
+    color:#f00000;
+    font-size: 55px;
+    font-family: Living Hell;
+}
+
 .anchored-element {
     position: fixed;
     top: 0;
     right: 0;
     padding: 10px;
-    background-color: #0000000000
-  }
+    background-color: #00000000
+}
+ 
+.anchored-element2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px;
+    background-color: #00000000
+}
 
+.anchored-element3 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    background-color: #00000000
+}
 
+.anchored-element4 {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #00000000
+}
