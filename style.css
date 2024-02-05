@@ -1,5 +1,6 @@
 body {
     background-color: #000000;
+    overflow: hidden
 }
 
 p {
@@ -8,5 +9,12 @@ p {
     font-size: 40px;
 }
 
+.anchored-element {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    background-color: #0000000000
+  }
 
 
