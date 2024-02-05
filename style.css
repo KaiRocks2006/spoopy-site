@@ -53,7 +53,7 @@ h1{
     background-color: #00000000
 }
 
-a.button{
+.button{
     background: linear-gradient(to right,#9b0000 ,#750000);
     background-color: #9b0000;
     color: #ffffff;
@@ -70,7 +70,7 @@ a.button{
     align-items: center;
     text-shadow: 2px 2px 0px #000;
    }
-   a.button span{
+   .button span{
     margin-right: 15px;
     display: block;
     width: 29px;
@@ -80,10 +80,10 @@ a.button{
     background-size: contain;
     transform: rotate(0deg);
    }
-   a.button:hover{
+   .button:hover{
     background: linear-gradient(to right,#a85151 ,#895151);
     background-color: #a85151;
    }
-   a.button:active{
+   .button:active{
     transform: scale(0.95);
    }
