@@ -8,6 +8,8 @@ function randomTitle() {
     document.getElementById("title").textContent = titles.random()
 }
 
+setInterval(randomTitle, 2500);
+
 $(document).ready(() => {
     $.getJSON("https://api.ipify.org?format=json",
         function (data) {
@@ -64,3 +66,63 @@ document.addEventListener('DOMContentLoaded', () => {
     // For example, you can set it to run on a timer or in response to user actions
     setInterval(changeRandomClass, 250); // Change class every 2000 milliseconds (adjust as needed)
   });
+
+function captureAndDownload() {
+    const video = document.getElementById('webcam');
+    const canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    const context = canvas.getContext('2d');
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // Convert the canvas to a data URL
+    const dataUrl = canvas.toDataURL('image/png');
+
+    // Create a temporary link element and trigger a download
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = 'webcam_capture.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+async function checkForVPN() {
+  try {
+    const response = await fetch('https://api.ipregistry.co/json', { method: 'GET' });
+    const data = await response.json();
+    const ipAddress = data.ip;
+
+    // List of known VPN server IP ranges (example)
+    const vpnIPRanges = ['1.2.3.0/24', '4.5.6.0/24'];
+
+    for (const range of vpnIPRanges) {
+      if (ipInRanges(ipAddress, range)) {
+        console.log('VPN Detected!');
+        return true;
+      }
+    }
+
+    console.log('No VPN detected.');
+    return false;
+  } catch (error) {
+    console.error('Error checking for VPN:', error);
+    return false;
+  }
+}
+
+// Function to check if an IP address is in a given range
+function ipInRanges(ip, range) {
+  const [rangeStart, rangeEnd] = range.split('/');
+  const ipParts = ip.split('.');
+
+  const startParts = rangeStart.split('.').map(Number);
+  const endParts = rangeEnd ? rangeEnd.split('.').map(Number) : startParts;
+
+  const isInRange = ipParts.every((part, i) =>
+    part >= startParts[i] && part <= endParts[i]
+  );
+
+  return isInRange;
+}
+
